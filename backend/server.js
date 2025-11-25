@@ -2,46 +2,31 @@ const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
 const port = 3000
+const cors = require('cors')
 
+let variable
 
 app.use(express.json())
-let chestie = 'bla';
+app.use(cors({
+  origin: "http://localhost:5173"
+}));
 mongoose.connect("mongodb+srv://admin:admin@pimp-your-grill.jgjtq6t.mongodb.net/")
 
-//app.get('/', (req, res) => {
-//  res.send('Hello World!')
-//})
-
-const schemaTest = new mongoose.Schema({
-  nume: String,
-  numar: Number
-});
-const testModel = mongoose.model('test', schemaTest);
-
-app.post('/testamchestii', (req ,res) =>{
-  const {nume, numar} = req.body
-  console.log(nume, numar)
-  if(nume != undefined && numar != undefined){
-  testModel.create({nume, numar})
-  res.send("da ba").status(200);
-  }else{
-    res.status(400).send("Empty stuff")
-  }
+const Schema = new mongoose.Schema({
+  name: String,
+  number: Number,
 })
 
-app.get('/testget', (req, res) =>{
-  res.send('macar asta merge')
+const test = mongoose.model("test", Schema)
+
+
+app.get('/ceva', async (req, res) =>{
+  const valoare = await test.find()
+  console.log(valoare);
+  (res.send(valoare))
 })
 
-app.get('/testamchestii', (req,res) =>{
-  const data = testModel.find({name: "cevacoaie"})
-  console.log(data)
-})
 
-const functie = async () => {
-  const data = await testModel.find({nume: "uite ba scriu ceva"});
-}
-functie()
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
