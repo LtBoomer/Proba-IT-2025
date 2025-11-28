@@ -1,16 +1,10 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import {BrowserRouter, Routes, Route, Link} from 'react-router-dom'
-import './index.css'
-import Home from './home/Home.jsx'
-//<StrictMode>
-//    <App />
-//  </StrictMode>,
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App";
 
-createRoot(document.getElementById('root')).render(
-  <BrowserRouter>
-    <Routes>
-        <Route path="/" element={<Home />} className="EstiUnGunoi"/>
-      </Routes>
-  </BrowserRouter>
-)
+ReactDOM.createRoot(document.getElementById("root")).render(
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+);

@@ -1,0 +1,56 @@
+/* 
+#root {
+  margin: 0 auto;
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+} */
+
+.Home-wrapper{
+  width: 100%;
+}
+.pimp-grill-image-wrapper{
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pimp-grill-image-frame{
+  width: 100%;
+}
+.pimp-grill-image{
+  position: absolute;
+  z-index: 5;
+}
+.welcome-message-wrapper{
+  width: 100%;
+  height: 182px;
+  background-color: #721D08;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .welcome-message-container{
+width: 75%;
+font-family: Montserrat;
+font-weight: 600;
+font-style: SemiBold;
+font-size: 48px;
+line-height: 100%;
+letter-spacing: 0%;
+text-align: center;
+color: white;
+  }
+}
+.bottom-pimp-grill-image-wrapper{
+  width: 100%;
+  height: 550px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img{
+    width: 75%;
+  }
+}
+

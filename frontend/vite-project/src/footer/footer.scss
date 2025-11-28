@@ -1,0 +1,29 @@
+.footer-wrapper {
+  width: 100%;
+  background-color: #721d08;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .footer-container {
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    font-family: Montserrat;
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 48px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+    color: white;
+    .logo-wrapper {
+      width: 70%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      img{
+        cursor: pointer;
+      }
+    }
+  }
+}
