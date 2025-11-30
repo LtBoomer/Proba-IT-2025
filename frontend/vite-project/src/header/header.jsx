@@ -23,10 +23,20 @@ const Header = () => {
         </div>
         <nav className="navigation-wrapper">
           <p>Best Grills</p>
-          <p onClick = {() =>{
-            handleNavigate("/login");
-          }}>Login</p>
-          <p>Register</p>
+          <p
+            onClick={() => {
+              handleNavigate("/login");
+            }}
+          >
+            Login
+          </p>
+          <p
+            onClick={() => {
+              handleNavigate("/sign-up");
+            }}
+          >
+            Register
+          </p>
         </nav>
       </div>
     </div>
