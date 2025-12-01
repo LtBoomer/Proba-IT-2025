@@ -3,8 +3,14 @@ import lockIcon from "../../../../Media/Login-icons/lock.png";
 import mailIcon from "../../../../Media/Login-icons/mail.png";
 import Header from "../header/header";
 import pimpGrillFrame from "../../../../Media/Pimp-your-grill-frame.png";
+import { useState } from "react";
 
 const LoginPage = () => {
+  const [userLoginInput, setUserLoginInput] = useState({
+    email: "blahblah5",
+    pass: "Somethingsomething",
+  });
+  const [loginErrorCondition, setLoginErrorCondition] = useState(false)
   return (
     <>
       <Header />
@@ -18,27 +24,67 @@ const LoginPage = () => {
           </div>
           <div className="input-wrapper">
             <div className="email input-container">
-                <div className="img-container">
-              <img src={mailIcon} />
-                </div>
-              <input type={Text} placeholder="E-mail"></input>
+              <div className="img-container">
+                <img src={mailIcon} />
+              </div>
+              <input type='text' placeholder="E-mail"></input>
             </div>
             <div className="password input-container">
-                <div className="img-container">
-              <img src={lockIcon} />
-                </div>
-              <input type={Text} placeholder="Password"></input>
+              <div className="img-container">
+                <img src={lockIcon} />
+              </div>
+              <input type='password' placeholder="Password"></input>
             </div>
             <div className="button-wrapper">
-            <button className="login-button">Log in</button>
+              <button
+                className="login-button"
+                onClick={async () => {
+                  const params = new URLSearchParams({
+                    email: userLoginInput.email,
+                  });
+                  const userBackend = await fetch(
+                    `http://localhost:3000/login-user/?${params.toString()}`
+                  );
+                  const data = await userBackend.json();
+                  if (data.password === userLoginInput.pass) {
+                    const fetchToken = await fetch(
+                      "http://localhost:3000/login-token",
+                      {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                          email: userLoginInput.email,
+                        }),
+                      }
+                    );
+                    const tokenAutentificare = await fetchToken.json();
+                    if (tokenAutentificare) {
+                      localStorage.setItem("token", tokenAutentificare);
+                    }
+                    console.log(localStorage.getItem("token"));
+                    // const email = await fetch("http://localhost:3000/profile", {
+                    //   headers: {
+                    //     Authorization: "Bearer " + tokenAutentificare,
+                    //   },
+                    // });
+                    window.location.reload()
+                  }
+                  else{
+                    setLoginErrorCondition(true);
+                  }
+                }}
+              >
+                Log in
+              </button>
             </div>
           </div>
           <div className="bottom-text-info">
             <p className="forgot-password">Forgot password</p>
             <div className="signup-message-container">
-            <p>Don't have an account? Click here to</p>
-            <p className="signup-text">sign up</p>
+              <p>Don't have an account? Click here to</p>
+              <p className="signup-text">sign up</p>
             </div>
+            {loginErrorCondition ? <p>Datele introduse sunt gresite!</p> : <></>}
           </div>
         </div>
       </div>

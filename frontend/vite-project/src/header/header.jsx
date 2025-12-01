@@ -1,8 +1,11 @@
 import "./header.scss";
 import logoIT from "../../../../Media/MediaHeader/logoIT.png";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-const Header = () => {
+const Header = (props) => {
+  const [provizoriu, setProvizoriu] = useState();
+  const { isAuthenticated } = props;
   const navigate = useNavigate();
 
   const handleNavigate = (route) => {
@@ -21,23 +24,33 @@ const Header = () => {
             }}
           />
         </div>
-        <nav className="navigation-wrapper">
-          <p>Best Grills</p>
-          <p
-            onClick={() => {
-              handleNavigate("/login");
-            }}
-          >
-            Login
-          </p>
-          <p
-            onClick={() => {
-              handleNavigate("/sign-up");
-            }}
-          >
-            Register
-          </p>
-        </nav>
+        {isAuthenticated ? (
+          <nav className="navigation-wrapper">
+            <p onClick={() =>{
+              handleNavigate("/profile")
+            }}>Profil</p>
+            <p>Best Grills</p>
+            <p>Logout</p>
+          </nav>
+        ) : (
+          <nav className="navigation-wrapper">
+            <p>Best Grills</p>
+            <p
+              onClick={() => {
+                handleNavigate("/login");
+              }}
+            >
+              Login
+            </p>
+            <p
+              onClick={() => {
+                handleNavigate("/sign-up");
+              }}
+            >
+              Register
+            </p>
+          </nav>
+        )}
       </div>
     </div>
   );
