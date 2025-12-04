@@ -100,7 +100,7 @@ const CreateGrillCard = (props) => {
               email: profile.email,
               likes: 0,
               photo: photoName,
-              description: grillContent.name,
+              description: grillContent.description,
             }),
           });
         }}
