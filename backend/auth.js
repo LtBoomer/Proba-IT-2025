@@ -5,7 +5,7 @@ const auth = (req, res, next) =>{
     const authHeader = req.headers.authorization
     const token = authHeader.split(" ")[1]
     const emailDecoded = jwt.verify(token, process.env.AUTH_CODE)
-    req.email = emailDecoded
+    req.email = emailDecoded;
     next()
 }
 

@@ -6,8 +6,8 @@ const app = express();
 const port = 3000;
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
-const auth = require('./auth')
-const uploadImage = require("./fileUpload")
+const auth = require("./auth");
+const uploadImage = require("./fileUpload");
 
 app.use(
   cors({
@@ -28,8 +28,15 @@ const UserSchema = new mongoose.Schema({
 });
 
 const GrillSchema = new mongoose.Schema({
+  grillName: String,
+  grillOwner: String,
+  emailOfOwner: String,
+  likes: Number,
+  photo: String,
+  description: String,
+});
 
-})
+const grill = mongoose.model("grill", GrillSchema);
 
 const user = mongoose.model("user", UserSchema);
 
@@ -39,6 +46,26 @@ app.post("/post", (req, res) => {
     telephoneNumber: req.body.number,
     email: req.body.email,
     password: req.body.pass,
+  });
+  res.status(200).send("A mers");
+});
+
+app.get("/fetch-own-grills", auth, async (req, res) => {
+  const emailOfOwner = req.email.email;
+  console.log(emailOfOwner);
+  const ownedGrills = await grill.find({ emailOfOwner });
+  res.send(ownedGrills).status(200);
+});
+
+app.post("/post-grill", (req, res) => {
+  console.log(req.body);
+  grill.create({
+    grillName: req.body.name,
+    grillOwner: req.body.owner,
+    emailOfOwner: req.body.email,
+    likes: req.body.likes,
+    photo: req.body.photo,
+    description: req.body.description,
   });
   res.status(200).send("A mers");
 });
@@ -58,14 +85,12 @@ app.post("/login-token", (req, res) => {
 });
 
 app.get("/profile", auth, (req, res) => {
-  console.log(req.email.email)
   res.json(req.email.email);
 });
 
-app.post("/upload-grill-photo", uploadImage.single("image"), (req, res) =>{
-  console.log(req.file);
-  res.json(req.file)
-})
+app.post("/upload-grill-photo", uploadImage.single("image"), (req, res) => {
+  res.json(req.file.filename);
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

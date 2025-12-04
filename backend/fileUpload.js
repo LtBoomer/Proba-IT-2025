@@ -1,7 +1,7 @@
 const multer = require("multer");
 const path = require("path");
 
-const dest = path.join(__dirname, "../Media/grillIcons");
+const dest = path.join(__dirname, "../frontend/vite-project/public/grillIcons");
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, dest);

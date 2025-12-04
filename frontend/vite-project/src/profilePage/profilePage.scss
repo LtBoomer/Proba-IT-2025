@@ -12,7 +12,7 @@
     }
     .profile-page-container-centered {
       position: absolute;
-      width: 60%;
+      width: 80%;
       height: 100vh;
       .user-info-wrapper {
         display: flex;
@@ -50,6 +50,104 @@
             text-align: center;
             border-radius: 15px;
             cursor: pointer;
+          }
+        }
+      }
+      .grills-posted-wrapper {
+        background-color: #903019;
+        border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 30px;
+        height: 80%;
+        color: white;
+        .my-grills-title-card {
+          font-weight: 700;
+          font-style: Bold;
+          font-size: 32px;
+          line-height: 100%;
+          letter-spacing: 0%;
+          text-align: center;
+        }
+        .grill-container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-evenly;
+          width: 90%;
+          height: 100%;
+          overflow-y: scroll;
+          .card-grill {
+            margin-top: 25px;
+            margin-bottom: 25px;
+            height: 500px;
+            width: 30%;
+            border-radius: 25px;
+            background-color: #d9d9d9;
+            overflow: hidden;
+            .grill-owner-wrapper {
+              width: 100%;
+              padding-left: 10px;
+              color: black;
+              font-weight: 700;
+              font-style: Bold;
+              font-size: 26px;
+              line-height: 100%;
+              letter-spacing: 0%;
+            }
+            .grill-content-wrapper {
+              height: 100%;
+              .grill-image-wrapper {
+                width: 100%;
+                height: 40%;
+                display: flex;
+                justify-content: center;
+                img {
+                  height: 100%;
+                }
+              }
+              .grill-text-info-wrapper {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                .grill-name-wrapper {
+                  width: 90%;
+                  height: 10%;
+                  padding-left: 10px;
+                  font-weight: 700;
+                  font-style: Bold;
+                  font-size: 18px;
+                  line-height: 100%;
+                  letter-spacing: 0%;
+                  color: black;
+                }
+                .grill-likes-wrapper {
+                  width: 90%;
+                  height: 10%;
+                  display: flex;
+                  align-items: center;
+                  gap: 20px;
+                  color: black;
+                  .likes-icon-wrapper {
+                    width: 20%;
+                    text-align: center;
+                    font-weight: 700;
+                    p {
+                      border: 2px solid black;
+                      background-color: brown;
+                      padding: 5px;
+                      border-radius: 15px;
+                      cursor: pointer;
+                    }
+                  }
+                }
+                .grill-description-wrapper{
+                  width: 90%;
+                }
+              }
+            }
           }
         }
       }
