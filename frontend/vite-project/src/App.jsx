@@ -4,6 +4,7 @@ import "./App.scss";
 import LoginPage from "./loginPage/Login";
 import Signup from "./signupPage/signup";
 import ProfilePage from "./profilePage/profilePage";
+import GrillPage from "./grillPage/grillPage";
 import { useState, useEffect } from "react";
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
       <Route path="/login" element={<LoginPage isAuthenticated={isAuthenticated} />} />
       <Route path="/sign-up" element={<Signup isAuthenticated={isAuthenticated} />} />
       <Route path="/profile" element={<ProfilePage isAuthenticated={isAuthenticated} profile={profile} />} />
+      <Route path="/grills" element={<GrillPage />} />
     </Routes>
   );
 }

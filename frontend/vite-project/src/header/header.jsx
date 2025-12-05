@@ -34,7 +34,9 @@ const Header = (props) => {
           </nav>
         ) : (
           <nav className="navigation-wrapper">
-            <p>Best Grills</p>
+            <p onClick = {() =>{
+              handleNavigate("/grills");
+            }}>Best Grills</p>
             <p
               onClick={() => {
                 handleNavigate("/login");

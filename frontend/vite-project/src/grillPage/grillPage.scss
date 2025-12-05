@@ -1,0 +1,16 @@
+.grill-page-wrapper{
+    .grill-page-container{
+        border: 2px solid green;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img{
+            width: 80%;
+            height: auto;
+        }
+        .grill-list{
+            position: absolute;
+        }
+    }
+}
