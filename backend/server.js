@@ -25,6 +25,8 @@ const UserSchema = new mongoose.Schema({
   telephoneNumber: Number,
   email: String,
   password: String,
+  likedGrills: Array,
+  likesGiven: Number,
 });
 
 const GrillSchema = new mongoose.Schema({
@@ -46,6 +48,8 @@ app.post("/post", (req, res) => {
     telephoneNumber: req.body.number,
     email: req.body.email,
     password: req.body.pass,
+    likedGrills: [],
+    likesGiven: 0,
   });
   res.status(200).send("A mers");
 });
@@ -73,7 +77,22 @@ app.post("/post-grill", (req, res) => {
 app.get("/login-user", async (req, res) => {
   const { email } = req.query;
   const userInfo = await user.findOne({ email });
-  res.send(userInfo).status(200);
+  console.log(userInfo);
+  if (userInfo != null) {
+    res.send(userInfo).status(200);
+  } else {
+    res.send({}).status(404);
+  }
+});
+app.get("/all-users", async (req, res) => {
+  const { email } = req.query;
+  const userExistsAlready = await user.findOne({ email });
+if(userExistsAlready == null){
+  res.send(0).status(200);
+}
+else{
+  res.send(1).status(200);
+}
 });
 
 app.post("/login-token", (req, res) => {
@@ -90,6 +109,56 @@ app.get("/profile", auth, (req, res) => {
 
 app.post("/upload-grill-photo", uploadImage.single("image"), (req, res) => {
   res.json(req.file.filename);
+});
+
+app.patch("/like-grill", async (req, res) => {
+  const { grillId, grillLikes } = req.body;
+  const countLike = await grill.updateOne(
+    { _id: grillId },
+    { $set: { likes: grillLikes } }
+  );
+  res.status(200);
+});
+
+app.get("/fetch-grills", async (req, res) => {
+  console.log(req.query);
+  const { number } = req.query;
+  const grills = await grill.find().limit(number);
+  res.send(grills);
+});
+
+app.get("/best-grills", async (req, res) => {
+  const bestGrills = await grill.find().sort({ likes: -1 }).limit(3);
+  console.log(bestGrills);
+  res.send(bestGrills);
+});
+
+app.patch("/update-user-likes", async (req, res) => {
+  const { userEmail, likes, grillId } = req.body;
+  console.log(grillId);
+  const likeUpdate = await user.updateOne(
+    { email: userEmail },
+    { $set: { likesGiven: likes } }
+  );
+  const likedGrillsUpdate = await user.updateOne(
+    { email: userEmail },
+    { $push: { likedGrills: grillId } }
+  );
+  res.send(200);
+});
+
+app.patch("/remove-grill-like", async (req, res) => {
+  const { userEmail, likes, grillId } = req.body;
+  console.log(grillId);
+  const likeUpdate = await user.updateOne(
+    { email: userEmail },
+    { $set: { likesGiven: likes } }
+  );
+  const likedGrillsUpdate = await user.updateOne(
+    { email: userEmail },
+    { $pull: { likedGrills: grillId } }
+  );
+  res.send(200);
 });
 
 app.listen(port, () => {

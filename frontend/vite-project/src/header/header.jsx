@@ -29,7 +29,8 @@ const Header = (props) => {
             <p onClick={() =>{
               handleNavigate("/profile")
             }}>Profil</p>
-            <p>Best Grills</p>
+            <p onClick = {() =>{
+              handleNavigate("/grills");}}>Best Grills</p>
             <p>Logout</p>
           </nav>
         ) : (

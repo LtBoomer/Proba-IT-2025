@@ -15,7 +15,10 @@ const Signup = () => {
     password: "",
     confirmPassword: "",
   });
-  const [errorMessage, setErrorMessage] = useState({message: "", showMessage: "hidden"});
+  const [errorMessage, setErrorMessage] = useState({
+    message: "",
+    showMessage: "hidden",
+  });
   return (
     <>
       <Header />
@@ -122,13 +125,35 @@ const Signup = () => {
           <div className="signup-button-wrapper">
             <button
               onClick={async (event) => {
-                const aldreadyExists = await fetch()
-                if(credentials.password !== credentials.confirmPassword){
-                  setErrorMessage({message: "Parolele nu coincid!", showMessage: "visible"})
-                }
-                if(!(credentials.email.includes("@gmail") || credentials.email.includes("@yahoo"))){
-                  setErrorMessage({message: "Adresa de email invalida", showMessage: "visible"})
-                }
+                const params = new URLSearchParams({
+                  email: credentials.email,
+                });
+                const alreadyExists = await fetch(
+                  `http://localhost:3000/all-users/?${params.toString()}`
+                );
+                const foundExistingUser = await alreadyExists.json();
+                console.log(foundExistingUser);
+                if (credentials.password !== credentials.confirmPassword) {
+                  setErrorMessage({
+                    message: "Passwords do not match",
+                    showMessage: "visible",
+                  });
+                } else if (
+                  !(
+                    credentials.email.includes("@gmail") ||
+                    credentials.email.includes("@yahoo")
+                  )
+                ) {
+                  setErrorMessage({
+                    message: "Invalid email address",
+                    showMessage: "visible",
+                  });
+                } else if (foundExistingUser) {
+                  setErrorMessage({
+                    message: "User already exists",
+                    showMessage: "visible",
+                  });
+                } else {
                   await fetch("http://localhost:3000/post", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -139,12 +164,20 @@ const Signup = () => {
                       pass: credentials.password,
                     }),
                   });
+                  setErrorMessage({
+                    message: "Account created successfully",
+                    showMessage: "visible",
+                  });
+                }
               }}
             >
               Sign up
             </button>
           </div>
-          <div className="error-message-wrapper" style={{visibility: errorMessage.showMessage}}>
+          <div
+            className="error-message-wrapper"
+            style={{ visibility: errorMessage.showMessage }}
+          >
             <p>{errorMessage.message}</p>
           </div>
         </div>

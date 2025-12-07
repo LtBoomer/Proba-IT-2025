@@ -1,16 +1,94 @@
-.grill-page-wrapper{
-    .grill-page-container{
-        border: 2px solid green;
-        position: relative;
+.grill-page-wrapper {
+  height: 100vh;
+  overflow-y: hidden;
+  .grill-page-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 90%;
+      height: auto;
+    }
+    .grill-list {
+      position: absolute;
+      width: 80%;
+      height: 100%;
+      overflow-y: scroll;
+      .search-bar-container {
+        height: 150px;
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
-        img{
-            width: 80%;
-            height: auto;
+        .input-container {
+          border: 2px solid #3f3f3f;
+          background-color: #d9d9d9;
+          width: 60%;
+          height: 30%;
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+          border-radius: 25px;
+          input {
+            width: 70%;
+            height: 100%;
+            background-color: transparent;
+            text-decoration: none;
+            border-color: transparent;
+            color: #3F3F3F;
+            font-size: 40px;
+          }
+          input:focus {
+            outline: none;
+          }
+          input::-webkit-input-placeholder {
+            color: #3F3F3F;
+          }
+          img {
+            height: 80%;
+            width: auto;
+          }
         }
-        .grill-list{
-            position: absolute;
+      }
+      .grills {
+        display: flex;
+        justify-content: space-between;
+        .general-grill-list {
+          width: 60%;
+          height: auto;
+          border-radius: 25px;
+          background-color: #903019;
+          display:flex;
+          flex-wrap: wrap;
+          justify-content: space-evenly;
+          .load-more-components-button{
+            width: 100%;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            button{
+              height: 75%;
+              width: 50%;
+              cursor: pointer;
+              border-radius: 15px;
+              border: transparent;
+            }
+          }
         }
+        .best-grills {
+          width: 30%;
+          height: auto;
+          border-radius: 25px;
+          background-color: #3E0C00;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    .scroll-aligner{
+      height: 60vh;
     }
+    }
+  }
 }

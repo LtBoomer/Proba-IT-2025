@@ -8,7 +8,13 @@ import GrillPage from "./grillPage/grillPage";
 import { useState, useEffect } from "react";
 
 function App() {
-  const [profile, setProfile] = useState({ name: "", phone: "", email: "" });
+  const [profile, setProfile] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    likes: 0,
+    grillsLiked: [],
+  });
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -32,18 +38,40 @@ function App() {
         `http://localhost:3000/login-user/?${params.toString()}`
       );
       const userData = await userDataRequest.json();
-      setProfile({name: userData.name, phone: userData.telephoneNumber, email: userData.email})
+      setProfile({
+        name: userData.name,
+        phone: userData.telephoneNumber,
+        email: userData.email,
+        likes: userData.likesGiven,
+        grillsLiked: userData.likedGrills,
+      });
     };
-    
+
     getProfile();
   }, []);
   return (
     <Routes>
       <Route path="/" element={<Home isAuthenticated={isAuthenticated} />} />
-      <Route path="/login" element={<LoginPage isAuthenticated={isAuthenticated} />} />
-      <Route path="/sign-up" element={<Signup isAuthenticated={isAuthenticated} />} />
-      <Route path="/profile" element={<ProfilePage isAuthenticated={isAuthenticated} profile={profile} />} />
-      <Route path="/grills" element={<GrillPage />} />
+      <Route
+        path="/login"
+        element={<LoginPage isAuthenticated={isAuthenticated} />}
+      />
+      <Route
+        path="/sign-up"
+        element={<Signup isAuthenticated={isAuthenticated} />}
+      />
+      <Route
+        path="/profile"
+        element={
+          <ProfilePage isAuthenticated={isAuthenticated} profile={profile} />
+        }
+      />
+      <Route
+        path="/grills"
+        element={
+          <GrillPage isAuthenticated={isAuthenticated} profile={profile} setProfile={setProfile}/>
+        }
+      />
     </Routes>
   );
 }

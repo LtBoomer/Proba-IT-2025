@@ -10,8 +10,8 @@ const LoginPage = (props) => {
   const { isAuthenticated } = props;
   const navigate = useNavigate();
   const [userLoginInput, setUserLoginInput] = useState({
-    email: "alex.popescu@example.com",
-    pass: "Somethingsomething",
+    email: "",
+    pass: "",
   });
   const [loginErrorCondition, setLoginErrorCondition] = useState(false);
   return (
@@ -30,13 +30,31 @@ const LoginPage = (props) => {
               <div className="img-container">
                 <img src={mailIcon} />
               </div>
-              <input type="text" placeholder="E-mail"></input>
+              <input
+                type="text"
+                placeholder="E-mail"
+                onChange={(event) => {
+                  setUserLoginInput({
+                    ...userLoginInput,
+                    email: event.target.value,
+                  });
+                }}
+              ></input>
             </div>
             <div className="password input-container">
               <div className="img-container">
                 <img src={lockIcon} />
               </div>
-              <input type="password" placeholder="Password"></input>
+              <input
+                type="password"
+                placeholder="Password"
+                onChange={(event) => {
+                  setUserLoginInput({
+                    ...userLoginInput,
+                    pass: event.target.value,
+                  });
+                }}
+              ></input>
             </div>
             <div className="button-wrapper">
               <button
