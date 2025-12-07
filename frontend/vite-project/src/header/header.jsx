@@ -4,8 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const Header = (props) => {
-  const [provizoriu, setProvizoriu] = useState();
-  const { isAuthenticated } = props;
+  const { isAuthenticated, setIsAuthenticated } = props;
   const navigate = useNavigate();
 
   const handleNavigate = (route) => {
@@ -31,7 +30,9 @@ const Header = (props) => {
             }}>Profil</p>
             <p onClick = {() =>{
               handleNavigate("/grills");}}>Best Grills</p>
-            <p>Logout</p>
+            <p onClick={() =>{
+              setIsAuthenticated(false);
+            }}>Logout</p>
           </nav>
         ) : (
           <nav className="navigation-wrapper">

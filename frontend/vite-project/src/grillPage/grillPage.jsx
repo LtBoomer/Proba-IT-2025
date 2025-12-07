@@ -7,7 +7,7 @@ import GrillCard from "../grillCard/grillCard";
 import DetailedGrillCard from "../detailedGrillCard/detailedGrillCard";
 
 const GrillPage = (props) => {
-  const { profile, isAuthenticated, setProfile } = props;
+  const { profile, isAuthenticated, setProfile, setIsAuthenticated } = props;
   const [searchItems, setSearchItems] = useState("");
   const [grillClicked, setGrillClicked] = useState();
   const [showDetailedCard, setShowDetailedCard] = useState(false);
@@ -33,7 +33,7 @@ const GrillPage = (props) => {
 
   return (
     <div className="grill-page-wrapper">
-      <Header />
+      <Header isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
       <div className="grill-page-container">
         <img src={backgroundImage} />
         <DetailedGrillCard

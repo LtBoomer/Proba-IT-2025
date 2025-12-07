@@ -9,7 +9,7 @@ import GrillCard from "../grillCard/grillCard";
 const ProfilePage = (props) => {
   const [showCard, setShowCard] = useState(false);
   const [grillList, setGrillList] = useState([]);
-  const { isAuthenticated, profile } = props;
+  const { isAuthenticated, profile, setIsAuthenticated } = props;
   useEffect(() => {
     const getGrills = async () => {
       const fetchGrills = await fetch(
@@ -28,7 +28,7 @@ const ProfilePage = (props) => {
   }, [isAuthenticated]);
   return (
     <div className="profile-page-wrapper">
-      <Header isAuthenticated={isAuthenticated} />
+      <Header isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
       <div className="profile-page-container">
         <img src={backgroundGrill} />
         <CreateGrillCard

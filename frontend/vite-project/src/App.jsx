@@ -51,19 +51,19 @@ function App() {
   }, []);
   return (
     <Routes>
-      <Route path="/" element={<Home isAuthenticated={isAuthenticated} />} />
+      <Route path="/" element={<Home isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>} />
       <Route
         path="/login"
-        element={<LoginPage isAuthenticated={isAuthenticated} />}
+        element={<LoginPage isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>}
       />
       <Route
         path="/sign-up"
-        element={<Signup isAuthenticated={isAuthenticated} />}
+        element={<Signup isAuthenticated={isAuthenticated}/>}
       />
       <Route
         path="/profile"
         element={
-          <ProfilePage isAuthenticated={isAuthenticated} profile={profile} />
+          <ProfilePage isAuthenticated={isAuthenticated} profile={profile} setIsAuthenticated={setIsAuthenticated}/>
         }
       />
       <Route
